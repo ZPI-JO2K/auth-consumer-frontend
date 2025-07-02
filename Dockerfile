@@ -1,16 +1,21 @@
-FROM node:20
+FROM node:20 as builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json . 
-
+COPY package*.json . 
 RUN npm install
 
-COPY . . 
+COPY . .
 
 RUN npm run build
 
+FROM node:20-slim
+
 RUN npm install -g serve
+
+WORKDIR /app
+
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
