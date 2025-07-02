@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  auth-consumer-frontend:
+  service:
     build:
       context: .
       dockerfile: Dockerfile
